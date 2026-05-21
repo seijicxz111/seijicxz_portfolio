@@ -2,23 +2,19 @@
 @tailwind components;
 @tailwind utilities;
 
-/* ── Google Fonts ── */
-
-
 /* ═══════════════════════════════════════════════════
-   🎨 COLOR PALETTE — Edit these to retheme the whole site
+   🎨 COLOR PALETTE
    #355872 → deep steel blue    (headings, buttons, dark text)
    #7AAACE → medium cornflower  (mid accents, borders, pills)
    #9CD5FF → soft sky blue      (light accents, hover glows)
    #F7F8F0 → warm off-white     (backgrounds, cards)
    ═══════════════════════════════════════════════════ */
 :root {
-  --deep:    #355872;   /* deep steel blue  */
-  --mid:     #7AAACE;   /* medium cornflower */
-  --sky:     #9CD5FF;   /* soft sky blue     */
-  --cream:   #F7F8F0;   /* warm off-white    */
+  --deep:    #355872;
+  --mid:     #7AAACE;
+  --sky:     #9CD5FF;
+  --cream:   #F7F8F0;
 
-  /* Derived shades — usually no need to touch these */
   --deep-10:  rgba(53,88,114,0.10);
   --deep-20:  rgba(53,88,114,0.20);
   --deep-40:  rgba(53,88,114,0.40);
@@ -28,12 +24,11 @@
   --sky-20:   rgba(156,213,255,0.20);
   --sky-40:   rgba(156,213,255,0.40);
 
-  /* Keep accent colours for variety */
-  --petal:   #c4d8ee;   /* soft blue-lavender */
-  --blossom: #ddeef8;   /* very light sky     */
-  --sun:     #e8f4ff;   /* palest blue tint   */
-  --lilac:   #b0c8d8;   /* blue-grey          */
-  --brown:   #4a6070;   /* muted blue-charcoal */
+  --petal:   #c4d8ee;
+  --blossom: #ddeef8;
+  --sun:     #e8f4ff;
+  --lilac:   #b0c8d8;
+  --brown:   #4a6070;
 }
 
 /* ── Base Reset ── */
@@ -46,14 +41,87 @@ html {
 
 body {
   font-family: var(--font-daruma), cursive;
-  background-color: var(--cream);
-  background-size: cover;
-  background-attachment: fixed;
-  background-repeat: no-repeat;
-  background-position: center center;
+  background-color: #eef6fd;
   color: var(--deep);
   overflow-x: hidden;
   line-height: 1.7;
+}
+
+/* ══════════════════════════════════════════
+   ✦ ANIMATED BACKGROUND SYSTEM
+   ══════════════════════════════════════════ */
+
+/* The fixed canvas that lives behind everything */
+.bg-canvas {
+  position: fixed;
+  inset: 0;
+  z-index: -2;
+  overflow: hidden;
+  background: linear-gradient(160deg, #ddeef8 0%, #e8f4ff 35%, #f0f8ff 65%, #ddeef8 100%);
+}
+
+/* Aurora / mesh orbs */
+.bg-orb {
+  position: absolute;
+  border-radius: 50%;
+  filter: blur(80px);
+  mix-blend-mode: multiply;
+  will-change: transform;
+}
+
+.bg-orb-1 {
+  width: 70vw; height: 70vw;
+  top: -20vw; left: -10vw;
+  background: radial-gradient(circle, rgba(156,213,255,0.55) 0%, rgba(122,170,206,0.25) 60%, transparent 100%);
+  animation: orbDrift1 18s ease-in-out infinite;
+}
+.bg-orb-2 {
+  width: 55vw; height: 55vw;
+  top: 20vh; right: -15vw;
+  background: radial-gradient(circle, rgba(196,216,238,0.6) 0%, rgba(186,218,255,0.3) 55%, transparent 100%);
+  animation: orbDrift2 22s ease-in-out infinite;
+}
+.bg-orb-3 {
+  width: 45vw; height: 45vw;
+  bottom: -10vw; left: 20vw;
+  background: radial-gradient(circle, rgba(221,238,248,0.7) 0%, rgba(156,213,255,0.25) 55%, transparent 100%);
+  animation: orbDrift3 26s ease-in-out infinite;
+}
+.bg-orb-4 {
+  width: 35vw; height: 35vw;
+  top: 50vh; left: 40vw;
+  background: radial-gradient(circle, rgba(176,200,216,0.4) 0%, rgba(122,170,206,0.2) 55%, transparent 100%);
+  animation: orbDrift4 30s ease-in-out infinite;
+}
+
+@keyframes orbDrift1 {
+  0%,100% { transform: translate(0, 0) scale(1); }
+  33%     { transform: translate(5vw, 8vh) scale(1.08); }
+  66%     { transform: translate(-4vw, 4vh) scale(0.96); }
+}
+@keyframes orbDrift2 {
+  0%,100% { transform: translate(0, 0) scale(1); }
+  33%     { transform: translate(-6vw, 5vh) scale(1.05); }
+  66%     { transform: translate(3vw, -8vh) scale(1.1); }
+}
+@keyframes orbDrift3 {
+  0%,100% { transform: translate(0, 0) scale(1); }
+  50%     { transform: translate(8vw, -6vh) scale(1.12); }
+}
+@keyframes orbDrift4 {
+  0%,100% { transform: translate(0, 0) scale(1); }
+  25%     { transform: translate(-5vw, 7vh) scale(0.92); }
+  75%     { transform: translate(6vw, -4vh) scale(1.06); }
+}
+
+/* Dot grid overlay */
+.bg-dots {
+  position: fixed;
+  inset: 0;
+  z-index: -1;
+  pointer-events: none;
+  background-image: radial-gradient(circle, rgba(53,88,114,0.09) 1px, transparent 1px);
+  background-size: 30px 30px;
 }
 
 /* ── Scrollbar ── */
@@ -77,15 +145,15 @@ body {
   z-index: 9999;
   transition: width 0.1s linear;
   border-radius: 0 2px 2px 0;
-  box-shadow: 0 0 8px rgba(156,213,255,0.6);
+  box-shadow: 0 0 10px rgba(156,213,255,0.8);
 }
 
 /* ── Chiikawa Card ── */
 .chiikawa-card {
-  background: rgba(247,248,240,0.88);
-  backdrop-filter: blur(16px);
-  -webkit-backdrop-filter: blur(16px);
-  border: 2px solid rgba(122,170,206,0.45);
+  background: rgba(247,248,240,0.82);
+  backdrop-filter: blur(20px);
+  -webkit-backdrop-filter: blur(20px);
+  border: 2px solid rgba(122,170,206,0.38);
   border-radius: 1.75rem;
   box-shadow: 0 8px 32px rgba(53,88,114,0.10), 0 2px 8px rgba(53,88,114,0.06);
   transition: transform 0.35s cubic-bezier(.34,1.56,.64,1), box-shadow 0.35s;
@@ -104,7 +172,7 @@ body {
 }
 .chiikawa-card:hover {
   transform: translateY(-8px);
-  box-shadow: 0 24px 56px rgba(53,88,114,0.16), 0 4px 16px rgba(53,88,114,0.09);
+  box-shadow: 0 28px 60px rgba(53,88,114,0.18), 0 4px 16px rgba(53,88,114,0.10);
 }
 .chiikawa-card:hover::before { opacity: 1; }
 

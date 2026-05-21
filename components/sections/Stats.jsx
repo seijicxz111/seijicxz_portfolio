@@ -7,7 +7,7 @@ const STATS = [
   { value: 5,   suffix: '+', label: 'Projects Built',   icon: 'fas fa-box-open',   color: 'bg-sky/15   border-sky/30' },
   { value: 3,   suffix: '+', label: 'Tech Stacks',      icon: 'fas fa-tools',      color: 'bg-petal/30 border-petal/40' },
   { value: 100, suffix: '%', label: 'Passion for Code', icon: 'fas fa-heart',      color: 'bg-sky/15   border-sky/30' },
-  { value: 999, suffix: '+', label: 'Coffees Sipped',   icon: 'fas fa-star',       color: 'bg-leaf/30  border-leaf/40', spin: true },
+  { value: 999, suffix: '+', label: 'Coffees Sipped',   icon: 'fas fa-coffee',     color: 'bg-leaf/30  border-leaf/40' },
 ];
 
 function Counter({ target, suffix }) {

@@ -70,7 +70,7 @@ export default function Contact() {
                 <h3 className="font-display font-800 text-deep text-lg">Say Hello!</h3>
               </div>
               <p className="text-deep/55 font-body text-sm leading-relaxed">
-                I'm open to internship opportunities, freelance projects, and collaborations. Don't hesitate to reach out!
+                I'm open to freelance projects, collaborations, and opportunities to grow as a developer. Don't hesitate to reach out!
               </p>
             </motion.div>
 
