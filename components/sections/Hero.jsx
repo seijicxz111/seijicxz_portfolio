@@ -220,24 +220,6 @@ export default function Hero() {
           {/* ── Text side ── */}
           <motion.div variants={container} initial="hidden" animate="show" className="order-2 md:order-1">
 
-            {/* Hello badge */}
-            <motion.div
-              variants={item}
-              className="inline-flex items-center gap-2 px-4 py-1.5 rounded-full mb-4 border"
-              style={{
-                background: 'rgba(156,213,255,0.15)',
-                borderColor: 'rgba(156,213,255,0.4)',
-              }}
-            >
-              <motion.span
-                animate={{ scale: [1, 1.3, 1] }}
-                transition={{ duration: 2, repeat: Infinity }}
-                className="text-xs"
-              >👋</motion.span>
-              <span className="text-sm font-display font-700" style={{ color: '#7AAACE' }}>
-                Hello there! I&apos;m
-              </span>
-            </motion.div>
 
             {/* Name with letter-by-letter reveal */}
             <motion.h1
@@ -246,17 +228,10 @@ export default function Hero() {
               style={{ letterSpacing: '-0.02em', perspectiveOrigin: 'left', perspective: 600 }}
             >
               <AnimatedName
-                text="CJ Steeve"
+                text="CJ Steeve Cadenas"
                 className="block"
                 style={{ color: '#355872' }}
                 delay={0.4}
-              />
-              <AnimatedName
-                text="Cadenas"
-                className="block"
-                style={{ background: 'linear-gradient(135deg, #355872 0%, #7AAACE 55%, #9CD5FF 100%)', WebkitBackgroundClip: 'text', WebkitTextFillColor: 'transparent', backgroundClip: 'text' }}
-                delay={0.7}
-                gradient
               />
             </motion.h1>
 
