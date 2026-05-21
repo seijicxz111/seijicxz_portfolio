@@ -20,8 +20,8 @@ module.exports = {
         sun:     '#FFF0C2',
       },
       fontFamily: {
-        display: ['"Baloo 2"', 'cursive'],
-        body:    ['"Nunito"', 'sans-serif'],
+        display: ['"Daruma Drop One"', 'cursive'],
+        body:    ['"Daruma Drop One"', 'cursive'],
         mono:    ['"Space Mono"', 'monospace'],
       },
       borderRadius: {
