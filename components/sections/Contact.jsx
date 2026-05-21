@@ -5,7 +5,7 @@ import { motion, useInView, AnimatePresence } from 'framer-motion';
 import SectionTitle from '@/components/ui/SectionTitle';
 
 const SOCIALS = [
-  { icon: 'fab fa-github',    label: 'GitHub',    href: 'https://github.com/seijicxz',            value: 'seijicxz',          color: '#355872' },
+  { icon: 'fab fa-github',    label: 'GitHub',    href: 'https://github.com/seijicxz111',            value: 'seijicxz',          color: '#355872' },
   { icon: 'fab fa-facebook-f',label: 'Facebook',  href: 'https://www.facebook.com/violeeee.07',   value: 'facebook.com/violeeee.07', color: '#1877f2' },
   { icon: 'fab fa-linkedin',  label: 'LinkedIn',  href: '#',                                       value: 'seijicxz',          color: '#0a66c2' },
   { icon: 'fas fa-envelope',  label: 'Email',     href: 'mailto:cjsteevecadenas0@gmail.com',       value: 'cjsteevecadenas0@gmail.com', copyable: true, color: '#7AAACE' },

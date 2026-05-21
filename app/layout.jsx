@@ -1,8 +1,8 @@
 import './globals.css';
 
 export const metadata = {
-  title: 'Seijicxz — Web Developer',
-  description: 'CJ Steeve Cadenas — Aspiring Web Developer & UI Designer from the Philippines.',
+  title: 'eeve',
+  description: 'CJ Steeve Cadenas — Web Developer & UI Designer.',
   icons: { icon: '/logo.png' },
 };
 

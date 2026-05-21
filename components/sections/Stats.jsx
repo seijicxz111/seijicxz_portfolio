@@ -1,13 +1,13 @@
 'use client';
 
 import { useEffect, useRef, useState } from 'react';
-import { motion, useInView } from 'framer-motion';
+import { motion, useInView, useAnimation } from 'framer-motion';
 
 const STATS = [
   { value: 5,   suffix: '+', label: 'Projects Built',   icon: 'fas fa-box-open',   color: 'bg-sky/15   border-sky/30' },
   { value: 3,   suffix: '+', label: 'Tech Stacks',      icon: 'fas fa-tools',      color: 'bg-petal/30 border-petal/40' },
   { value: 100, suffix: '%', label: 'Passion for Code', icon: 'fas fa-heart',      color: 'bg-sky/15   border-sky/30' },
-  { value: 1,   suffix: '',  label: 'Country (PH)',     icon: 'fas fa-map-marker-alt', color: 'bg-leaf/30  border-leaf/40' },
+  { value: 999, suffix: '+', label: 'Coffees Sipped',   icon: 'fas fa-star',       color: 'bg-leaf/30  border-leaf/40', spin: true },
 ];
 
 function Counter({ target, suffix }) {
@@ -47,16 +47,23 @@ export default function Stats() {
           {STATS.map((stat, i) => (
             <motion.div
               key={stat.label}
-              initial={{ opacity: 0, y: 30, scale: 0.92 }}
-              animate={inView ? { opacity: 1, y: 0, scale: 1 } : {}}
-              transition={{ delay: i * 0.1, type: 'spring', stiffness: 260, damping: 20 }}
+              initial={{ opacity: 0, y: 40, scale: 0.85, rotateY: -25 }}
+              animate={inView ? { opacity: 1, y: 0, scale: 1, rotateY: 0 } : {}}
+              transition={{ delay: i * 0.12, type: 'spring', stiffness: 240, damping: 18 }}
               className={`chiikawa-card p-6 text-center border-2 ${stat.color}`}
-              whileHover={{ y: -6, scale: 1.03 }}
+              whileHover={{ y: -8, scale: 1.05, boxShadow: '0 20px 50px rgba(53,88,114,0.22)' }}
             >
               <motion.div
                 className="w-10 h-10 rounded-xl bg-white flex items-center justify-center mx-auto mb-2 border border-sky/20 shadow-sm"
-                whileHover={{ rotate: [0, -10, 10, 0] }}
-                transition={{ duration: 0.4 }}
+                animate={stat.spin
+                  ? { rotate: 360 }
+                  : { rotate: [0, -10, 10, 0] }
+                }
+                transition={stat.spin
+                  ? { duration: 3, repeat: Infinity, ease: 'linear' }
+                  : { duration: 0.4 }
+                }
+                whileHover={stat.spin ? {} : { rotate: [0, -15, 15, -8, 0] }}
               >
                 <i className={`${stat.icon} text-mid text-sm`} />
               </motion.div>

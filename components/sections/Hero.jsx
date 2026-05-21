@@ -4,25 +4,7 @@ import { useState, useEffect, useRef } from 'react';
 import { motion, useMotionValue, useSpring, useTransform, AnimatePresence, useScroll, useVelocity, useAnimationFrame } from 'framer-motion';
 import Image from 'next/image';
 
-// ╔══════════════════════════════════════════════════════════════╗
-// ║           ✏️  EDIT YOUR PERSONAL INFO HERE                   ║
-// ╠══════════════════════════════════════════════════════════════╣
-// ║                                                              ║
-// ║  PROFILE PHOTO                                               ║
-// ║  → Replace the file at:  /public/pfp.png                    ║
-// ║    (any square image works; recommended 512×512px or larger) ║
-// ║                                                              ║
-// ║  MASCOT / ICON BADGE (bottom-right of profile circle)        ║
-// ║  → Replace the file at:  /public/icon1.png                  ║
-// ║    (use a PNG with transparent background)                   ║
-// ║                                                              ║
-// ║  NAVBAR LOGO ICON                                            ║
-// ║  → Replace the file at:  /public/icon.png                   ║
-// ║    (small square icon, shown in nav bar)                     ║
-// ║                                                              ║
-// ╚══════════════════════════════════════════════════════════════╝
 
-// ── Your name (shown in the big hero heading) ──────────────────
 const FIRST_NAME  = 'CJ Steeve';   // ← change me
 const LAST_NAME   = 'Cadenas';     // ← change me
 
@@ -30,8 +12,8 @@ const LAST_NAME   = 'Cadenas';     // ← change me
 const ROLES = [
   'Web Developer',       // ← change / add / remove roles
   'UI Designer',
-  'Aspiring Engineer',
-  'Anime Enthusiast',
+  'Game Dev',
+  'Game Designer',
 ];
 
 // Floating deco shapes matched to meadow palette
