@@ -1,1 +1,1 @@
-self.__REACT_LOADABLE_MANIFEST="{\"components\\\\ThreeCanvas.jsx -> three\":{\"id\":\"components\\\\ThreeCanvas.jsx -> three\",\"files\":[\"static/chunks/_app-pages-browser_node_modules_three_build_three_module_js.js\"]}}"
+self.__REACT_LOADABLE_MANIFEST="{}"

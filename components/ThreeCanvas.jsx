@@ -2,129 +2,129 @@
 
 import { useEffect, useRef } from 'react';
 
-export default function ThreeCanvas() {
-  const canvasRef = useRef(null);
+const IMGS = [
+  '/assets/01.png',
+  '/assets/02.png',
+  '/assets/03.png',
+  '/assets/04.png',
+  '/assets/06.png',
+  '/assets/07.png',
+  '/assets/08.png',
+];
+
+export default function FloatingSprites() {
+  const containerRef = useRef(null);
+  const animRef      = useRef(null);
 
   useEffect(() => {
-    // Skip Three.js entirely on mobile — saves ~500KB JS + eliminates
-    // the main-thread animation loop that causes "Minimize main-thread work"
-    if (window.innerWidth < 768) return;
+    const container = containerRef.current;
+    if (!container) return;
 
-    let animId;
-    let THREE;
+    const W = window.innerWidth;
+    const H = window.innerHeight;
+    const isMobile = W < 768;
+    const COUNT = isMobile ? 6 : 12;
 
-    async function init() {
-      THREE = (await import('three')).default || await import('three');
+    // Simple seeded random so values are stable across calls
+    let seed = 42;
+    const rand = () => {
+      seed = (seed * 1664525 + 1013904223) & 0xffffffff;
+      return (seed >>> 0) / 0xffffffff;
+    };
 
-      const canvas = canvasRef.current;
-      if (!canvas) return;
+    // Build bubble state in px
+    const bubbles = Array.from({ length: COUNT }, (_, i) => ({
+      img:      IMGS[i % IMGS.length],
+      x:        rand() * W,
+      y:        rand() * H,
+      size:     isMobile ? 28 + rand() * 36 : 36 + rand() * 52, // smaller: 36–88px desktop, 28–64px mobile
+      opacity:  0.15 + rand() * 0.20,
+      phase:    rand() * Math.PI * 2,
+      amp:      6 + rand() * 16,
+      speedX:   (rand() - 0.5) * 0.08,
+      rotSpeed: (rand() - 0.5) * 0.35,
+      rot:      rand() * 360,
+    }));
 
-      const renderer = new THREE.WebGLRenderer({ canvas, alpha: true, antialias: false });
-      // Cap pixel ratio at 1.5 on desktop to reduce GPU fill cost
-      renderer.setPixelRatio(Math.min(window.devicePixelRatio, 1.5));
-      renderer.setSize(window.innerWidth, window.innerHeight);
-
-      const scene = new THREE.Scene();
-      const camera = new THREE.PerspectiveCamera(60, window.innerWidth / window.innerHeight, 0.1, 200);
-      camera.position.set(0, 0, 40);
-
-      // Reduced from 28 → 14 bubbles; lower-poly geometry (8,8) → saves geometry memory
-      const bubbleGeo = new THREE.SphereGeometry(1, 8, 8);
-      const bubbles = [];
-      const bubbleColors = [0x9CD5FF, 0x7AAACE, 0xC8EFD4, 0xFFD6E0, 0xF9C5D1];
-      for (let i = 0; i < 14; i++) {
-        const mat = new THREE.MeshPhongMaterial({
-          color: bubbleColors[Math.floor(Math.random() * bubbleColors.length)],
-          transparent: true,
-          opacity: 0.18 + Math.random() * 0.14,
-          shininess: 80,
-        });
-        const scale = 0.4 + Math.random() * 1.2;
-        const mesh = new THREE.Mesh(bubbleGeo, mat);
-        mesh.scale.setScalar(scale);
-        mesh.position.set(
-          (Math.random() - 0.5) * 80,
-          (Math.random() - 0.5) * 50,
-          (Math.random() - 0.5) * 30
-        );
-        mesh.userData = {
-          speedY: (Math.random() - 0.5) * 0.012,
-          speedX: (Math.random() - 0.5) * 0.008,
-          phase:  Math.random() * Math.PI * 2,
-          amp:    0.5 + Math.random() * 1.5,
-        };
-        scene.add(mesh);
-        bubbles.push(mesh);
-      }
-
-      // Reduced stars 120 → 60
-      const starGeo = new THREE.BufferGeometry();
-      const starCount = 60;
-      const positions = new Float32Array(starCount * 3);
-      for (let i = 0; i < starCount * 3; i++) {
-        positions[i] = (Math.random() - 0.5) * 120;
-      }
-      starGeo.setAttribute('position', new THREE.BufferAttribute(positions, 3));
-      const starMat = new THREE.PointsMaterial({
-        color: 0x7AAACE,
-        size: 0.22,
-        transparent: true,
-        opacity: 0.55,
+    // Create <img> elements
+    const els = bubbles.map((b) => {
+      const img = document.createElement('img');
+      img.src = b.img;
+      img.alt = '';
+      img.draggable = false;
+      Object.assign(img.style, {
+        position:      'absolute',
+        width:         `${b.size}px`,
+        height:        `${b.size}px`,
+        opacity:       b.opacity,
+        pointerEvents: 'none',
+        userSelect:    'none',
+        willChange:    'transform',
+        objectFit:     'contain',
+        // start positioned
+        left: `${b.x}px`,
+        top:  `${b.y}px`,
+        transform: `rotate(${b.rot}deg)`,
       });
-      const stars = new THREE.Points(starGeo, starMat);
-      scene.add(stars);
+      container.appendChild(img);
+      return img;
+    });
 
-      scene.add(new THREE.AmbientLight(0xffffff, 0.9));
-      const dirLight = new THREE.DirectionalLight(0x9CD5FF, 0.8);
-      dirLight.position.set(10, 20, 10);
-      scene.add(dirLight);
-      const pointLight = new THREE.PointLight(0xF9C5D1, 0.6, 60);
-      pointLight.position.set(-20, -10, 15);
-      scene.add(pointLight);
+    let t = 0;
+    function animate() {
+      animRef.current = requestAnimationFrame(animate);
+      t += 0.008;
 
-      let t = 0;
-      function animate() {
-        animId = requestAnimationFrame(animate);
-        t += 0.008;
-        bubbles.forEach((b) => {
-          b.position.y += Math.sin(t + b.userData.phase) * b.userData.amp * 0.005;
-          b.position.x += Math.cos(t * 0.7 + b.userData.phase) * 0.003;
-          b.rotation.x += 0.003;
-          b.rotation.y += 0.004;
-          if (b.position.y > 30) b.position.y = -30;
-          if (b.position.x > 45) b.position.x = -45;
-        });
-        stars.rotation.y += 0.0003;
-        renderer.render(scene, camera);
-      }
-      animate();
+      bubbles.forEach((b, i) => {
+        // Exact same motion as original Three.js loop
+        b.y   += Math.sin(t + b.phase) * b.amp * 0.005 * H * 0.1;
+        b.x   += Math.cos(t * 0.7 + b.phase) * b.speedX * W * 0.01;
+        b.rot += b.rotSpeed;
 
-      function onResize() {
-        camera.aspect = window.innerWidth / window.innerHeight;
-        camera.updateProjectionMatrix();
-        renderer.setSize(window.innerWidth, window.innerHeight);
-      }
-      window.addEventListener('resize', onResize);
-      return () => window.removeEventListener('resize', onResize);
+        // Wrap edges
+        if (b.y > H + 60)  b.y = -60;
+        if (b.y < -60)     b.y = H + 60;
+        if (b.x > W + 60)  b.x = -60;
+        if (b.x < -60)     b.x = W + 60;
+
+        const el = els[i];
+        el.style.left = `${b.x}px`;
+        el.style.top  = `${b.y}px`;
+        el.style.transform = `rotate(${b.rot}deg)`;
+      });
     }
 
-    const cleanup = init();
+    animate();
+
+    const onResize = () => {
+      // reanchor to new viewport on resize
+      const nW = window.innerWidth;
+      const nH = window.innerHeight;
+      bubbles.forEach(b => {
+        b.x = (b.x / W) * nW;
+        b.y = (b.y / H) * nH;
+      });
+    };
+    window.addEventListener('resize', onResize, { passive: true });
+
     return () => {
-      cancelAnimationFrame(animId);
-      cleanup?.then?.((fn) => fn?.());
+      cancelAnimationFrame(animRef.current);
+      window.removeEventListener('resize', onResize);
+      els.forEach(el => el.remove());
     };
   }, []);
 
   return (
-    <canvas
-      ref={canvasRef}
+    <div
+      ref={containerRef}
       id="three-canvas"
       style={{
-        position: 'fixed',
-        inset: 0,
+        position:      'fixed',
+        inset:         0,
+        overflow:      'hidden',
         pointerEvents: 'none',
-        zIndex: 0,
-        opacity: 0.65,
+        zIndex:        0,
+        opacity:       0.7,
       }}
     />
   );
