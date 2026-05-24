@@ -4,7 +4,7 @@ import { Space_Mono } from 'next/font/google'
 import FontAwesomeLoader from '@/components/FontAwesomeLoader'
 
 const daruma = localFont({
-  src: '../public/fonts/DarumadropOne-Regular.ttf',
+  src: '../public/fonts/DarumadropOne-Regular.woff2',
   variable: '--font-daruma',
   display: 'swap',
 })
@@ -32,6 +32,14 @@ export default function RootLayout({ children }) {
       className={`${daruma.variable} ${spaceMono.variable}`}
     >
       <head>
+        {/* Preload the display font — biggest single FCP win (148KB vs 351KB TTF) */}
+        <link
+          rel="preload"
+          href="/fonts/DarumadropOne-Regular.woff2"
+          as="font"
+          type="font/woff2"
+          crossOrigin="anonymous"
+        />
         {/* Preconnect so the async FA load is faster when it fires */}
         <link rel="preconnect" href="https://cdnjs.cloudflare.com" crossOrigin="anonymous" />
       </head>

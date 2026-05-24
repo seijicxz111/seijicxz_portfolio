@@ -398,7 +398,7 @@ export default function Hero() {
                 whileHover={{ scale: 1.22, rotate: 18 }}
               >
                 <div className="relative w-20 h-20">
-                  <Image src="/icon1.png" alt="mascot" fill className="object-contain" />
+                  <Image src="/icon1.png" alt="mascot" fill priority sizes="80px" className="object-contain" />
                 </div>
               </motion.div>
             </div>
