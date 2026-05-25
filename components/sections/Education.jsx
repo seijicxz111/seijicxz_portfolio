@@ -35,8 +35,8 @@ const EDUCATION = [
 const CERTS = [
   {
     type: 'cert',
-    // Terminal/console icon — game dev cert
-    icon: 'fas fa-terminal',
+    // Gamepad/console icon — game dev cert
+    icon: 'fas fa-gamepad',
     iconColor: '#4a8fcb',
     title: 'Introduction to Game Development',
     org: 'Codecademy',
