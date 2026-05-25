@@ -35,8 +35,9 @@ const EDUCATION = [
 const CERTS = [
   {
     type: 'cert',
-    icon: 'fas fa-trophy',
-    iconColor: '#f59e0b',
+    // Godot icon — game dev cert
+    imgSrc: 'https://cdn.jsdelivr.net/gh/devicons/devicon/icons/godot/godot-original.svg',
+    iconColor: '#4a8fcb',
     title: 'Introduction to Game Development',
     org: 'Codecademy',
     period: 'May 2026',
@@ -48,8 +49,9 @@ const CERTS = [
   },
   {
     type: 'cert',
-    icon: 'fas fa-scroll',
-    iconColor: '#7AAACE',
+    // C language icon — secure coding in C cert
+    icon: 'fas fa-c',
+    iconColor: '#5c8fbd',
     title: 'Secure Coding Practices in C',
     org: 'Codecademy',
     period: 'May 2026',
@@ -61,6 +63,7 @@ const CERTS = [
   },
   {
     type: 'cert',
+    // Python icon — Python cert
     icon: 'fab fa-python',
     iconColor: '#3776AB',
     title: 'Python Essentials 1',
@@ -104,7 +107,10 @@ function TimelineItem({ item, index }) {
             whileHover={{ rotate: [0, -10, 10, 0], scale: 1.1 }}
             transition={{ duration: 0.4 }}
           >
-            <Icon name={item.icon} className="text-sm" style={{ color: item.iconColor }} />
+            {item.imgSrc
+              ? <img src={item.imgSrc} alt={item.title} style={{ width: 20, height: 20, objectFit: 'contain' }} />
+              : <Icon name={item.icon} className="text-sm" style={{ color: item.iconColor }} />
+            }
           </motion.div>
           <div className="flex-1 min-w-0">
             <div className="flex items-start justify-between gap-2 flex-wrap">

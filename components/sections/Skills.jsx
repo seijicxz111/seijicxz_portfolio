@@ -14,21 +14,20 @@ const SKILL_GROUPS = [
     label: 'Frontend',
     icon: 'fas fa-paint-brush',
     skills: [
-      { name: 'HTML & CSS',       icon: 'fab fa-html5',     color: '#e96228' },
-      { name: 'JavaScript',       icon: 'fab fa-js-square', color: '#c8961a' },
-      { name: 'React.js',         icon: 'fab fa-react',     color: '#3d8fa8' },
-      { name: 'Tailwind CSS',     icon: 'fas fa-wind',      color: '#3b88a0' },
-      { name: 'Next.js',          icon: 'fas fa-code',      color: '#355872' },
-      { name: 'GDScript / Godot', imgSrc: 'https://cdn.jsdelivr.net/gh/devicons/devicon/icons/godot/godot-original.svg', color: '#4a8fcb' },
+      { name: 'HTML & CSS',   icon: 'fab fa-html5',     color: '#e96228' },
+      { name: 'JavaScript',   icon: 'fab fa-js-square', color: '#c8961a' },
+      { name: 'React.js',     icon: 'fab fa-react',     color: '#3d8fa8' },
+      { name: 'Tailwind CSS', icon: 'fas fa-wind',      color: '#3b88a0' },
+      { name: 'Next.js',      icon: 'fas fa-code',      color: '#355872' },
     ],
   },
   {
     label: 'Backend',
     icon: 'fas fa-server',
     skills: [
-      { name: 'Node.js',    icon: 'fab fa-node-js', color: '#3d7a3e' },
-      { name: 'Python',     icon: 'fab fa-python',  color: '#3b6a9c' },
-      { name: 'Express.js', icon: 'fas fa-server',  color: '#7AAACE' },
+      { name: 'Node.js',    icon: 'fab fa-node-js',  color: '#3d7a3e' },
+      { name: 'Python',     icon: 'fab fa-python',   color: '#3b6a9c' },
+      { name: 'Express.js', icon: 'fas fa-server',   color: '#7AAACE' },
       { name: 'MySQL',      icon: 'fas fa-database', color: '#2a7a8f' },
       { name: 'PostgreSQL', imgSrc: 'https://cdn.jsdelivr.net/gh/devicons/devicon/icons/postgresql/postgresql-original.svg', color: '#3b6a9c' },
       { name: 'Flutter',    imgSrc: 'https://cdn.jsdelivr.net/gh/devicons/devicon/icons/flutter/flutter-original.svg',      color: '#3dcef5' },
@@ -38,12 +37,12 @@ const SKILL_GROUPS = [
     label: 'Tools',
     icon: 'fas fa-tools',
     skills: [
-      { name: 'Git & GitHub', icon: 'fab fa-github', color: '#355872' },
-      { name: 'Figma',        icon: 'fab fa-figma',  color: '#8a6eb8' },
-      { name: 'VS Code',      icon: 'fas fa-code',   color: '#2a6aad' },
-      { name: 'Linux (WSL)',  icon: 'fab fa-linux',  color: '#c8961a' },
-      { name: 'JetBrains',    imgSrc: 'https://cdn.jsdelivr.net/gh/devicons/devicon/icons/jetbrains/jetbrains-original.svg', color: '#e84393' },
-      { name: 'Vite',         imgSrc: 'https://cdn.jsdelivr.net/gh/devicons/devicon/icons/vitejs/vitejs-original.svg',      color: '#9c6aff' },
+      { name: 'Git & GitHub',    icon: 'fab fa-github', color: '#355872' },
+      { name: 'Figma',           icon: 'fab fa-figma',  color: '#8a6eb8' },
+      { name: 'VS Code',         icon: 'fas fa-code',   color: '#2a6aad' },
+      { name: 'JetBrains',       imgSrc: 'https://cdn.jsdelivr.net/gh/devicons/devicon/icons/jetbrains/jetbrains-original.svg', color: '#e84393' },
+      { name: 'Vite',            imgSrc: 'https://cdn.jsdelivr.net/gh/devicons/devicon/icons/vitejs/vitejs-original.svg',      color: '#9c6aff' },
+      { name: 'GDScript / Godot', imgSrc: 'https://cdn.jsdelivr.net/gh/devicons/devicon/icons/godot/godot-original.svg',     color: '#4a8fcb' },
     ],
   },
 ];
@@ -88,12 +87,11 @@ function SkillCard({ name, icon, imgSrc, color, delay = 0 }) {
   return (
     <motion.div
       ref={ref}
-      style={{ perspective: 600, rotateX, rotateY }}
+      style={{ perspective: 600, rotateX, rotateY, background: 'rgba(255,255,255,0.78)' }}
       initial={{ opacity: 0, y: 30, scale: 0.85 }}
       animate={inView ? { opacity: 1, y: 0, scale: 1 } : {}}
       transition={{ delay, type: 'spring', stiffness: 260, damping: 22 }}
       className="skill-card-sketchy flex items-center gap-3 px-4 py-3 rounded-2xl cursor-default"
-      style={{ background: 'rgba(255,255,255,0.78)' }}
       onMouseMove={handleMouseMove}
       onMouseLeave={handleMouseLeave}
       whileHover={{ y: -5, boxShadow: '0 12px 32px rgba(53,88,114,0.18)' }}
@@ -189,7 +187,6 @@ export default function Skills() {
               whileHover={{ scale: 1.06, y: -2 }}
               whileTap={{ scale: 0.94 }}
             >
-              {/* motion.span replaces motion.i — same animation, icon inside */}
               <motion.span
                 className="inline-flex items-center text-xs"
                 animate={active === i ? { rotate: [0, -15, 15, 0], scale: [1, 1.2, 1] } : {}}

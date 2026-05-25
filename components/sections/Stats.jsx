@@ -7,7 +7,7 @@ import Icon from '@/components/ui/Icon';
 const STATS = [
   { value: 5,   suffix: '+', label: 'Projects Built',   icon: 'fas fa-box-open',   color: 'bg-sky/15   border-sky/30' },
   { value: 3,   suffix: '+', label: 'Tech Stacks',      icon: 'fas fa-tools',      color: 'bg-petal/30 border-petal/40' },
-  { value: 100, suffix: '%', label: 'Passion for Code', icon: 'fas fa-heart',      color: 'bg-sky/15   border-sky/30' },
+  { value: 99,  suffix: '%', label: 'Bug Free (trust me)', imgSrc: '/hehe.png',   color: 'bg-sky/15   border-sky/30' },
   { value: 999, suffix: '+', label: 'Coffees Sipped',   icon: 'fas fa-coffee',     color: 'bg-leaf/30  border-leaf/40' },
 ];
 
@@ -55,7 +55,7 @@ export default function Stats() {
               whileHover={{ y: -8, scale: 1.05, boxShadow: '0 20px 50px rgba(53,88,114,0.22)' }}
             >
               <motion.div
-                className="w-10 h-10 rounded-xl bg-white flex items-center justify-center mx-auto mb-2 icon-sq-sketchy"
+                className="w-16 h-16 rounded-xl bg-white flex items-center justify-center mx-auto mb-2 icon-sq-sketchy"
                 animate={stat.spin
                   ? { rotate: 360 }
                   : { rotate: [0, -10, 10, 0] }
@@ -66,7 +66,10 @@ export default function Stats() {
                 }
                 whileHover={stat.spin ? {} : { rotate: [0, -15, 15, -8, 0] }}
               >
-                <Icon name={stat.icon} className="text-mid text-sm" />
+                {stat.imgSrc
+                  ? <img src={stat.imgSrc} alt={stat.label} style={{ width: 52, height: 52, objectFit: 'contain' }} />
+                  : <Icon name={stat.icon} className="text-mid text-2xl" />
+                }
               </motion.div>
               <Counter target={stat.value} suffix={stat.suffix} />
               <p className="text-deep/55 text-xs font-body font-700 mt-1 tracking-wide">{stat.label}</p>
