@@ -136,7 +136,7 @@ function HandDrawnProfileFrame({ w = 260, h = 300 }) {
         strokeLinecap="round"
         strokeLinejoin="round"
         fill="none"
-        style={{ filter: 'url(#sketchy-filter)' }}
+        
       />
       <rect
         x={p+3} y={p+3} width={w - p*2 - 6} height={h - p*2 - 6}

@@ -140,17 +140,8 @@ body {
   /* the most expensive operations on mobile GPUs                               */
   .chiikawa-card,
   .glass-soft,
-  .sketchy-circle,
-  .sketchy-pill,
-  .sketchy-badge,
   .icon-sq,
-  .icon-sq-sketchy,
-  .skill-card-sketchy,
-  .tab-btn-sketchy,
-  .tab-btn-sketchy-active,
-  .tag-pill,
   #scroll-progress,
-  .navbar-sketchy-border,
   .timeline-dot,
   .btn-chiikawa,
   .btn-chiikawa-primary,
@@ -455,50 +446,48 @@ body {
     transition-duration: 0.01ms !important;
   }
 }
-/* ══════════════════════════════════════════
-   ✏️ HAND-DRAWN / SKETCHY BORDER SYSTEM
-   Uses SVG feTurbulence filter to make ALL
-   borders look wobbly / hand-sketched.
-   ══════════════════════════════════════════ */
-
-/* ── SVG filter definitions (injected via a hidden element in layout) ── */
-/* We embed the filter inline so it works without a separate SVG file */
-
-/* Sketchy filter applied via CSS filter: url(#sketchy) — 
-   we use an inline SVG trick: the filter is defined in a hidden
-   <svg> tag we inject, then reference it by ID */
-
-/* ── Core sketchy effect via outline/box-shadow replacement ── */
-
-/* The main sketchy shape for round containers (pfp, social icons, back-to-top) */
-.sketchy-circle {
-  border-radius: 50%;
-  border: 2.5px solid rgba(122,170,206,0.75);
-  box-shadow:
-    /* Simulate jagged outer edge with layered shadows at tiny offsets */
-    1px 0px 0 0.5px rgba(122,170,206,0.3),
-    -1px 1px 0 0.5px rgba(156,213,255,0.25),
-    2px -1px 0 0.5px rgba(122,170,206,0.2),
-    -2px 0px 0 0.5px rgba(156,213,255,0.2),
-    0px 2px 0 0.5px rgba(122,170,206,0.15),
-    3px 1px 0 0.5px rgba(156,213,255,0.12),
-    -1px -2px 0 0.5px rgba(122,170,206,0.1),
-    0 4px 12px rgba(53,88,114,0.12);
+/* ── Icon containers: small tech icon squares ── */
+.icon-sq {
+  border: 1.5px solid rgba(122,170,206,0.4);
+  border-radius: 0.6rem;
+  box-shadow: 0 2px 8px rgba(53,88,114,0.08);
   position: relative;
-  filter: url(#rough-sketch);
 }
 
-/* Sketchy pill (skill badges beside pfp) */
+/* Skill card */
+.skill-card-sketchy {
+  border: 1.5px solid rgba(156,213,255,0.4);
+  box-shadow: 0 2px 10px rgba(53,88,114,0.07);
+}
+
+/* Tab buttons */
+.tab-btn-sketchy {
+  border: 1.5px solid rgba(156,213,255,0.35);
+  box-shadow: 0 2px 8px rgba(53,88,114,0.06);
+}
+.tab-btn-sketchy-active {
+  border: 1.5px solid rgba(53,88,114,0.5);
+  box-shadow: 0 4px 14px rgba(53,88,114,0.28);
+}
+
+/* Icon square */
+.icon-sq-sketchy {
+  border: 1.5px solid rgba(122,170,206,0.4);
+  box-shadow: 0 2px 6px rgba(53,88,114,0.07);
+}
+
+/* Sketchy circle — now just a clean circle */
+.sketchy-circle {
+  border-radius: 50%;
+  border: 1.5px solid rgba(122,170,206,0.55);
+  box-shadow: 0 3px 10px rgba(53,88,114,0.1);
+}
+
+/* Pill */
 .sketchy-pill {
   border-radius: 999px;
-  border: 2px solid rgba(122,170,206,0.6);
-  box-shadow:
-    1px -1px 0 0.5px rgba(122,170,206,0.3),
-    -1px 1px 0 0.5px rgba(156,213,255,0.2),
-    2px 0px 0 0.5px rgba(122,170,206,0.15),
-    -2px 1px 0 0.5px rgba(156,213,255,0.12),
-    0 4px 14px rgba(53,88,114,0.13);
-  filter: url(#rough-pill);
+  border: 1.5px solid rgba(122,170,206,0.5);
+  box-shadow: 0 3px 10px rgba(53,88,114,0.1);
   width: max-content;
   max-width: max-content;
   white-space: nowrap;
@@ -507,350 +496,70 @@ body {
   flex-shrink: 0;
 }
 
-/* Sketchy badge (mascot badge bottom-right of pfp) */
+/* Badge */
 .sketchy-badge {
   border-radius: 1.2rem;
-  border: 2.5px solid rgba(122,170,206,0.7);
-  box-shadow:
-    2px -1px 0 0.5px rgba(122,170,206,0.35),
-    -1px 2px 0 0.5px rgba(156,213,255,0.25),
-    2px 1px 0 0.5px rgba(122,170,206,0.2),
-    -2px -1px 0 0.5px rgba(156,213,255,0.15),
-    0 6px 18px rgba(53,88,114,0.15);
-  position: relative;
-  filter: url(#rough-pill);
+  border: 1.5px solid rgba(122,170,206,0.55);
+  box-shadow: 0 4px 14px rgba(53,88,114,0.12);
 }
 
-/* Sketchy card (chiikawa-card override) */
-.chiikawa-card {
-  border: 2.5px solid rgba(122,170,206,0.55) !important;
-  border-radius: 1.6rem !important;
-  box-shadow:
-    /* Jagged offsets to simulate hand-drawn card edge */
-    3px 0px 0 0px rgba(122,170,206,0.18),
-    0px 3px 0 0px rgba(156,213,255,0.14),
-    -2px 0px 0 0px rgba(122,170,206,0.12),
-    0px -2px 0 0px rgba(156,213,255,0.10),
-    4px 2px 0 0px rgba(122,170,206,0.08),
-    -3px 3px 0 0px rgba(156,213,255,0.07),
-    0 8px 32px rgba(53,88,114,0.10),
-    0 2px 8px rgba(53,88,114,0.06) !important;
-  position: relative;
-  filter: url(#rough-pill);
-}
-
-/* SVG-based sketchy border overlay on chiikawa-card via pseudo-element */
-.chiikawa-card::after {
-  content: '';
-  position: absolute;
-  inset: -3px;
-  border-radius: 1.8rem;
-  pointer-events: none;
-  background: transparent;
-  border: 2px solid rgba(156,213,255,0.22);
-  /* Shift offset to look like a second hand-drawn pass */
-  transform: translate(1.5px, -1.5px) rotate(0.4deg) scaleX(1.003);
-  z-index: 0;
-}
-
-/* Navbar sketchy border */
+/* Navbar border */
 .navbar-sketchy-border {
-  border-bottom: 2.5px solid rgba(122,170,206,0.45) !important;
-  box-shadow:
-    0 2px 0 0 rgba(156,213,255,0.2),
-    0 3px 0 0 rgba(122,170,206,0.10),
-    0 4px 0 0 rgba(156,213,255,0.06),
-    0 16px 40px rgba(53,88,114,0.09) !important;
-
-}
-/* Second "pass" line on navbar */
-.navbar-sketchy-border::after {
-  content: '';
-  position: absolute;
-  bottom: -5px;
-  left: 2%;
-  right: 3%;
-  height: 1.5px;
-  background: rgba(156,213,255,0.25);
-  border-radius: 999px;
-  transform: rotate(-0.15deg) scaleX(0.98);
-  pointer-events: none;
+  border-bottom: 1px solid rgba(122,170,206,0.3);
+  box-shadow: 0 8px 24px rgba(53,88,114,0.07);
 }
 
-/* Footer sketchy border */
-footer {
-  border-top: 2.5px solid rgba(122,170,206,0.38) !important;
-  position: relative;
-}
-footer::before {
-  content: '';
-  position: absolute;
-  top: -5px;
-  left: 1%;
-  right: 2%;
-  height: 1.5px;
-  background: rgba(156,213,255,0.22);
-  border-radius: 999px;
-  transform: rotate(0.2deg) scaleX(0.99);
-  pointer-events: none;
-}
-
-/* Icon containers (small squares/rounds holding tech icons, github icon, etc.) */
-.icon-container,
-[class*="rounded-lg"][class*="flex"][class*="items-center"][class*="justify-center"],
-.w-8.h-8.rounded-full,
-.w-9.h-9,
-.w-10.h-10.rounded-xl,
-.w-11.h-11 {
-  position: relative;
-}
-
-/* Glass soft sketchy override */
-.glass-soft {
-  border: 2px solid rgba(122,170,206,0.42) !important;
-  box-shadow:
-    2px 0 0 0 rgba(122,170,206,0.15),
-    0 2px 0 0 rgba(156,213,255,0.12),
-    -2px 1px 0 0 rgba(122,170,206,0.10),
-    0 -1px 0 0 rgba(156,213,255,0.08),
-    0 8px 28px rgba(53,88,114,0.09) !important;
-  position: relative;
-}
-.glass-soft::after {
-  content: '';
-  position: absolute;
-  inset: -2px;
-  border-radius: inherit;
-  border: 1.5px solid rgba(156,213,255,0.18);
-  transform: translate(1px, -1px) rotate(0.3deg);
-  pointer-events: none;
-  z-index: 0;
-}
-
-/* Tag pill sketchy */
+/* Tag pill */
 .tag-pill {
-  border: 1.5px solid rgba(122,170,206,0.55) !important;
-  position: relative;
-  box-shadow:
-    1px -1px 0 0 rgba(122,170,206,0.22),
-    -1px 1px 0 0 rgba(156,213,255,0.16),
-    0 3px 8px rgba(53,88,114,0.07) !important;
-  filter: url(#rough-pill);
-}
-.tag-pill::after {
-  content: '';
-  position: absolute;
-  inset: -1.5px;
-  border-radius: 999px;
-  border: 1px solid rgba(156,213,255,0.18);
-  transform: translate(0.8px, -0.8px) rotate(0.5deg);
-  pointer-events: none;
+  border: 1.5px solid rgba(122,170,206,0.45);
+  box-shadow: 0 2px 6px rgba(53,88,114,0.06);
 }
 
-/* Input sketchy */
+/* Input */
 .chiikawa-input {
-  border: 2.5px solid rgba(122,170,206,0.42) !important;
-  box-shadow:
-    2px -1px 0 0 rgba(122,170,206,0.15),
-    -1px 2px 0 0 rgba(156,213,255,0.12),
-    0 4px 14px rgba(53,88,114,0.06) !important;
+  border: 1.5px solid rgba(122,170,206,0.4);
+  box-shadow: 0 3px 10px rgba(53,88,114,0.05);
 }
 .chiikawa-input:focus {
-  border-color: var(--mid) !important;
-  box-shadow:
-    0 0 0 4px rgba(156,213,255,0.22),
-    2px -1px 0 0 rgba(122,170,206,0.2),
-    -1px 2px 0 0 rgba(156,213,255,0.15) !important;
+  border-color: var(--mid);
+  box-shadow: 0 0 0 3px rgba(156,213,255,0.2);
 }
 
-/* Tab buttons — sketchy inactive */
-.tab-btn-sketchy {
-  border: 2px solid rgba(156,213,255,0.4) !important;
-  position: relative;
-  box-shadow:
-    1.5px -1px 0 0 rgba(122,170,206,0.2),
-    -1px 1.5px 0 0 rgba(156,213,255,0.15),
-    0 3px 10px rgba(53,88,114,0.07) !important;
-  filter: url(#rough-pill);
-}
-.tab-btn-sketchy::after {
-  content: '';
-  position: absolute;
-  inset: -2.5px;
-  border-radius: 999px;
-  border: 1px solid rgba(156,213,255,0.18);
-  transform: translate(1px, -1px) rotate(0.35deg) scaleX(1.015);
-  pointer-events: none;
-  z-index: 0;
-}
-
-/* Tab buttons — sketchy active */
-.tab-btn-sketchy-active {
-  border: 2.5px solid rgba(53,88,114,0.65) !important;
-  position: relative;
-  box-shadow:
-    2px -1px 0 0 rgba(53,88,114,0.3),
-    -1.5px 2px 0 0 rgba(122,170,206,0.2),
-    3px 1.5px 0 0 rgba(53,88,114,0.12),
-    0 4px 16px rgba(53,88,114,0.35) !important;
-  filter: url(#rough-pill);
-}
-.tab-btn-sketchy-active::after {
-  content: '';
-  position: absolute;
-  inset: -3px;
-  border-radius: 999px;
-  border: 1.5px solid rgba(156,213,255,0.25);
-  transform: translate(1.5px, -1.5px) rotate(0.45deg) scaleX(1.02);
-  pointer-events: none;
-  z-index: 0;
-}
-
-/* Skill card — sketchy */
-.skill-card-sketchy {
-  border: 2px solid rgba(156,213,255,0.45) !important;
-  position: relative;
-  box-shadow:
-    2px -1px 0 0 rgba(122,170,206,0.2),
-    -1px 2px 0 0 rgba(156,213,255,0.15),
-    2.5px 1.5px 0 0 rgba(122,170,206,0.1),
-    0 2px 12px rgba(53,88,114,0.08) !important;
-  filter: url(#rough-pill);
-}
-.skill-card-sketchy::after {
-  content: '';
-  position: absolute;
-  inset: -2px;
-  border-radius: inherit;
-  border: 1px solid rgba(156,213,255,0.18);
-  transform: translate(1px, -1px) rotate(0.4deg) scaleX(1.005);
-  pointer-events: none;
-  z-index: 0;
-}
-
-/* Icon square — sketchy */
-.icon-sq-sketchy {
-  border: 2px solid rgba(122,170,206,0.5) !important;
-  position: relative;
-  box-shadow:
-    2px -1px 0 0 rgba(122,170,206,0.22),
-    -1px 2px 0 0 rgba(156,213,255,0.16),
-    1.5px 1.5px 0 0 rgba(122,170,206,0.1) !important;
-  filter: url(#rough-pill);
-}
-.icon-sq-sketchy::after {
-  content: '';
-  position: absolute;
-  inset: -2px;
-  border-radius: inherit;
-  border: 1.5px solid rgba(156,213,255,0.2);
-  transform: translate(1px, -1px) rotate(0.6deg);
-  pointer-events: none;
-  z-index: 0;
-}
-
-/* Skill bar track sketchy */
-.skill-bar-track {
-  border: 1.5px solid rgba(122,170,206,0.2);
-  box-shadow:
-    1px 0 0 0 rgba(122,170,206,0.1),
-    0 1px 0 0 rgba(156,213,255,0.08);
-}
-
-/* Timeline dot sketchy */
+/* Timeline dot */
 .timeline-dot {
-  border: 2.5px solid white !important;
-  box-shadow:
-    0 0 0 1.5px rgba(122,170,206,0.5),
-    0 0 0 3px rgba(156,213,255,0.2),
-    1px -1px 0 3px rgba(122,170,206,0.08),
-    0 0 10px rgba(156,213,255,0.55) !important;
-  filter: url(#rough-sketch);
+  border: 2.5px solid white;
+  box-shadow: 0 0 0 2px rgba(122,170,206,0.45), 0 0 8px rgba(156,213,255,0.4);
 }
 
-/* ── Scroll Progress bar sketchy ── */
+/* Glass soft */
+.glass-soft {
+  border: 1.5px solid rgba(122,170,206,0.35);
+  box-shadow: 0 6px 24px rgba(53,88,114,0.08);
+}
+
+/* Scroll progress */
 #scroll-progress {
-  border-bottom: 1.5px solid rgba(156,213,255,0.4);
-  filter: url(#rough-pill);
+  border-bottom: 1px solid rgba(156,213,255,0.3);
 }
 
-/* ── Back to top sketchy ── */
+/* Back to top */
 #back-to-top {
-  border: 2px solid rgba(122,170,206,0.35) !important;
-  box-shadow:
-    2px -1px 0 0 rgba(122,170,206,0.2),
-    -1px 2px 0 0 rgba(156,213,255,0.15),
-    0 4px 20px rgba(53,88,114,0.28) !important;
+  border: 1.5px solid rgba(122,170,206,0.3);
+  box-shadow: 0 4px 18px rgba(53,88,114,0.22);
 }
 
-/* PH clock sketchy */
+/* PH clock */
 #ph-clock {
-  border: 2px solid rgba(122,170,206,0.42) !important;
-  box-shadow:
-    1px -1px 0 0 rgba(122,170,206,0.18),
-    -1px 1px 0 0 rgba(156,213,255,0.14),
-    0 4px 16px rgba(53,88,114,0.09) !important;
+  border: 1.5px solid rgba(122,170,206,0.35);
+  box-shadow: 0 3px 12px rgba(53,88,114,0.08);
 }
 
-/* ── Jitter animation for sketchy feel on hover ── */
-@keyframes sketchyJitter {
-  0%   { transform: translate(0, 0) rotate(0deg); }
-  20%  { transform: translate(0.4px, -0.3px) rotate(0.15deg); }
-  40%  { transform: translate(-0.3px, 0.4px) rotate(-0.1deg); }
-  60%  { transform: translate(0.3px, 0.2px) rotate(0.12deg); }
-  80%  { transform: translate(-0.2px, -0.3px) rotate(-0.08deg); }
-  100% { transform: translate(0, 0) rotate(0deg); }
+/* Skill bar track */
+.skill-bar-track {
+  border: 1px solid rgba(122,170,206,0.18);
 }
 
-.chiikawa-card:hover,
-.sketchy-circle:hover,
-.sketchy-badge:hover,
-.sketchy-pill:hover {
-  animation: sketchyJitter 0.35s ease-in-out;
-}
-
-
-/* ── Apply SVG displacement filter to sketchy elements for true jaggedness ── */
-.sketchy-circle,
-.sketchy-badge,
-.sketchy-pill {
-  filter: url(#sketchy);
-}
-
-/* Chiikawa card - apply sketchy filter to the card border outline only via pseudo */
-.chiikawa-card {
-  /* We can't filter the whole card (would blur content) so we rely on
-     the double-border trick + the pseudo-element outline trick above */
-}
-
-/* Navbar sketchy when scrolled */
-.navbar-sketchy-border {
-  filter: url(#sketchy-text);
-}
-
-/* Social icon circles in navbar/footer/hero */
-.w-8.h-8.rounded-full,
-.w-11.h-11.sketchy-circle {
-  filter: url(#sketchy);
-}
-
-/* Icon containers: small tech icon squares */
-.icon-sq {
-  border: 2px solid rgba(122,170,206,0.5);
-  border-radius: 0.6rem;
-  box-shadow:
-    2px -1px 0 0 rgba(122,170,206,0.2),
-    -1px 2px 0 0 rgba(156,213,255,0.15),
-    1px 1px 0 0 rgba(122,170,206,0.1);
-  filter: url(#sketchy);
-  position: relative;
-}
-.icon-sq::after {
-  content: '';
-  position: absolute;
-  inset: -2px;
-  border-radius: 0.8rem;
-  border: 1.5px solid rgba(156,213,255,0.2);
-  transform: translate(1px, -1px) rotate(0.6deg);
-  pointer-events: none;
+/* Footer */
+footer {
+  border-top: 1px solid rgba(122,170,206,0.3);
 }

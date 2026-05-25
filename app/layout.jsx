@@ -46,42 +46,6 @@ export default function RootLayout({ children }) {
       <body className={`${daruma.variable} ${spaceMono.variable}`}>
         {/* Font Awesome loaded async — never blocks render */}
         <FontAwesomeLoader />
-        {/* Hidden SVG filter definitions for sketchy/hand-drawn effect */}
-        <svg width="0" height="0" style={{ position: 'absolute', overflow: 'hidden' }} aria-hidden="true">
-          <defs>
-            {/* sketchy-filter / rough-sketch: used for circles and the profile frame */}
-            <filter id="sketchy-filter" x="-12%" y="-12%" width="124%" height="124%">
-              <feTurbulence type="fractalNoise" baseFrequency="0.042 0.058" numOctaves="4" seed="3" stitchTiles="stitch" result="noise" />
-              <feDisplacementMap in="SourceGraphic" in2="noise" scale="5.5" xChannelSelector="R" yChannelSelector="G" />
-            </filter>
-            <filter id="rough-sketch" x="-12%" y="-12%" width="124%" height="124%">
-              <feTurbulence type="fractalNoise" baseFrequency="0.042 0.058" numOctaves="4" seed="3" stitchTiles="stitch" result="noise" />
-              <feDisplacementMap in="SourceGraphic" in2="noise" scale="5.5" xChannelSelector="R" yChannelSelector="G" />
-            </filter>
-            {/* rough-pill: for pills, badges, tag pills — slightly less rough */}
-            <filter id="rough-pill" x="-6%" y="-18%" width="112%" height="136%">
-              <feTurbulence type="fractalNoise" baseFrequency="0.048 0.065" numOctaves="4" seed="7" stitchTiles="stitch" result="noise" />
-              <feDisplacementMap in="SourceGraphic" in2="noise" scale="4" xChannelSelector="R" yChannelSelector="G" />
-            </filter>
-            {/* sketchy / sketchy-strong / sketchy-text kept for back-compat */}
-            <filter id="sketchy" x="-5%" y="-5%" width="110%" height="110%">
-              <feTurbulence type="fractalNoise" baseFrequency="0.065" numOctaves="3" seed="2" result="noise" />
-              <feDisplacementMap in="SourceGraphic" in2="noise" scale="2.5" xChannelSelector="R" yChannelSelector="G" result="displaced" />
-              <feMorphology operator="dilate" radius="0.4" in="displaced" result="thick" />
-              <feComposite in="thick" in2="SourceGraphic" operator="over" />
-            </filter>
-            <filter id="sketchy-strong" x="-8%" y="-8%" width="116%" height="116%">
-              <feTurbulence type="fractalNoise" baseFrequency="0.055" numOctaves="4" seed="7" result="noise" />
-              <feDisplacementMap in="SourceGraphic" in2="noise" scale="3.5" xChannelSelector="R" yChannelSelector="G" result="displaced" />
-              <feMorphology operator="dilate" radius="0.5" in="displaced" result="thick" />
-              <feComposite in="thick" in2="SourceGraphic" operator="over" />
-            </filter>
-            <filter id="sketchy-text" x="-3%" y="-3%" width="106%" height="106%">
-              <feTurbulence type="fractalNoise" baseFrequency="0.04" numOctaves="2" seed="12" result="noise" />
-              <feDisplacementMap in="SourceGraphic" in2="noise" scale="1.2" xChannelSelector="R" yChannelSelector="G" />
-            </filter>
-          </defs>
-        </svg>
         {children}
       </body>
     </html>
