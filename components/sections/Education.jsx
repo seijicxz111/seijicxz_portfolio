@@ -75,6 +75,20 @@ const CERTS = [
     dotColor: 'from-blue-300 to-blue-500',
     link: '/certs/python_cert.pdf',
   },
+  {
+    type: 'cert',
+    // React icon — Advanced React cert
+    icon: 'fab fa-react',
+    iconColor: '#61DAFB',
+    title: 'Learn Advanced React Course',
+    org: 'Codecademy',
+    period: 'May 2026',
+    desc: 'Successfully completed all course material in the Learn Advanced React Course.',
+    tags: ['Certificate', 'Codecademy', 'React'],
+    color: 'bg-sky/10 border-sky/30',
+    dotColor: 'from-cyan-300 to-sky-400',
+    link: '/certs/advreact_cert.pdf',
+  },
 ];
 
 function TimelineItem({ item, index }) {
